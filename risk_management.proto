@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package stockbroker;
+
+service StockBroker {
+  rpc PlaceOrder (OrderRequest) returns (OrderResponse);
+}
+
+message OrderRequest {
+  string order_id = 1;
+  string user_id = 2;
+  double order_amount = 3;
+  repeated StockItem items = 4;
+  CustomerDetails customer_details = 5;
+  PaymentDetails payment_details = 6;
+  string order_timestamp = 7;
+}
+
+message StockItem {
+  string stock_symbol = 1;
+  string order_type = 2; // e.g., buy, sell
+  int32 quantity = 3;
+  double price = 4;
+}
+
+message CustomerDetails {
+  string customer_name = 1;
+  string email = 2;
+  string phone_number = 3;
+  Address address = 4;
+}
+
+message Address {
+  string street = 1;
+  string city = 2;
+  string state = 3;
+  string country = 4;
+  string postal_code = 5;
+}
+
+message PaymentDetails {
+  string payment_method = 1;
+  string transaction_id = 2;
+  string payment_timestamp = 3;
+  double payment_amount = 4;
+}
+
+message OrderResponse {
+  bool is_valid = 1;
+  string message = 2;
+}
